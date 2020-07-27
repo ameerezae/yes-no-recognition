@@ -1,0 +1,11 @@
+numpy
+scipy
+matplotlib
+pandas
+soundfile
+simpleaudio
+pyaudio
+Flask
+flask-restplus
+Werkzeug==0.16.1
+Flask-Cors
