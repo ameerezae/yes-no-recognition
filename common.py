@@ -46,4 +46,4 @@ def yes_no_recognition(file_path, threshold, multiple_chanel=False):
         else:
             return "no", feature_value
     else:
-        return None, None
+        return None, feature_value

@@ -6,7 +6,7 @@ class VoiceRecordApi {
             let formData = new FormData();
             formData.append("audio-file", wavFile);
             const response = await axios.post(
-                "http://51.195.53.45:5000/yes_no_detection",
+                "http://51.195.53.45:5000/yes_no_recognition",
                 formData,
                 {
                     headers : {

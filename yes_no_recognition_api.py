@@ -18,11 +18,16 @@ class YesNoRecognition(Resource):
     def post(self):
         threshold = 20
         wav_file = request.files.get("audio-file")
-        dst_path = os.path.join(uploads_dir, secure_filename(wav_file.filename))
-        wav_file.save(dst=dst_path)
-        result, feature_value = yes_no_recognition(dst_path, threshold)
-        return {"result": result, "feature_value": feature_value}
-
+        if wav_file:
+            dst_path = os.path.join(uploads_dir, secure_filename(wav_file.filename))
+            wav_file.save(dst=dst_path)
+            result, feature_value = yes_no_recognition(dst_path, threshold)
+            if result is None:
+                return {"result": "Mute", "feature_value": feature_value}
+            else:
+                return {"result": result, "feature_value": feature_value}
+        else:
+            return {"message": "bad request"}, 400
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
