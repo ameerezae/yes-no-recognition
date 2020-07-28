@@ -22,10 +22,7 @@ class YesNoRecognition(Resource):
             dst_path = os.path.join(uploads_dir, secure_filename(wav_file.filename))
             wav_file.save(dst=dst_path)
             result, feature_value = yes_no_recognition(dst_path, threshold)
-            if result is None:
-                return {"result": "Mute", "feature_value": feature_value}
-            else:
-                return {"result": result, "feature_value": feature_value}
+            return {"result": result, "feature_value": feature_value}
         else:
             return {"message": "bad request"}, 400
 

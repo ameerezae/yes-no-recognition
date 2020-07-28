@@ -23,8 +23,13 @@ def yes_no_recognition(file_path, threshold, multiple_chanel=False):
     low_freq = [0, None]
     high_freq = [None, None]
     data, rate = soundfile.read(file_path)
+    min_energy = 10
     if multiple_chanel is True:
         data = data[:, 0]
+    energy = power_spectrum_magnitude(data)
+    if energy < min_energy:
+        return "Mute", 0
+
     fourier_transform_data = np.fft.fft(data, rate)
     magnitude_data = np.round(np.abs(fourier_transform_data))
     low_freq[1] = ((len(data) * 5512) // rate)
@@ -39,11 +44,7 @@ def yes_no_recognition(file_path, threshold, multiple_chanel=False):
     if threshold is None:
         return feature_value
 
-    psm_high = power_spectrum_magnitude(magnitude_data[high_freq[0]: high_freq[1]])
-    if psm_high >= 10:
-        if feature_value < threshold:
-            return "yes", feature_value
-        else:
-            return "no", feature_value
+    if feature_value < threshold:
+        return "yes", feature_value
     else:
-        return None, feature_value
+        return "no", feature_value

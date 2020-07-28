@@ -45,7 +45,7 @@ while True:
 
     # reading file
     result, feature_value = yes_no_recognition(filename, threshold)
-    if result:
+    if result != "Mute":
         print("{}Recognized:{}".format(WARNING, ENDC), "{}{}{}".format(OKGREEN, result, ENDC), "", end='\r')
     else:
-        print("{}Listening:{}".format(WARNING, ENDC), "{}{}{}".format(OKGREEN, "Mute", ENDC), "", end='\r')
+        print("{}Listening:{}".format(WARNING, ENDC), "{}{}{}".format(OKGREEN, result, ENDC), "", end='\r')
